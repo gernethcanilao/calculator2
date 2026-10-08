@@ -1,13 +1,15 @@
 import './App.css'
 import { useState } from 'react'
 
+
 function CalcDisplay({ dispValue }) {
   return (
-    <div className='CalcDisplay'>
+    <div className='CalcDisplay' style={{ fontSize: dispValue === 'Mary Avelaine Buenaventura' ? '1.5em' : '1.8em' }}>
       {dispValue}
     </div>
   )
 }
+
 
 function CalcButtons({ label, buttonClassName = "CalcButton", onClick }) {
   return (
@@ -17,6 +19,7 @@ function CalcButtons({ label, buttonClassName = "CalcButton", onClick }) {
   )
 }
 
+
 function App() {
 
   const [disp, setDisp] = useState(0);
@@ -24,11 +27,13 @@ function App() {
   const [num2, setNum2] = useState(null);
   const [op, setOp] = useState(null);
 
+
   const onClickHandler = (e) => {
     e.preventDefault();
     const value = e.target.innerHTML
     setDisp(value);
   }
+
 
   const numClickHandler = (e) => {
     e.preventDefault();
@@ -54,6 +59,7 @@ function App() {
     console.log(num1 + "|" + op + "|" + num2 + "|" + disp);
   }
 
+
   const opClickHandler = (e) => {
     e.preventDefault();
     const value = e.target.innerHTML;
@@ -61,34 +67,46 @@ function App() {
     setDisp(value);
   }
 
+
   const eqClickHandler = (e) => {
     e.preventDefault();
     const value = e.target.innerHTML;
 
     if(op === "+") {
       setDisp(parseInt(num1) + parseInt(num2));
+    } else if (op === "-") {
+      setDisp(parseInt(num1) - parseInt(num2));
+    } else if (op === "*") {
+      setDisp(parseInt(num1) * parseInt(num2));
+    } else if (op === "÷") {
+      setDisp(parseInt(num1) / parseInt(num2));
     }
   }
 
+
   const clrClickHandler = (e) => {
     e.preventDefault();
+    const value = e.target.innerHTML;
     setDisp('0');
+    setNum1(null);
+    setNum2(null);
+    setOp(null);
   }
 
-  const canilaoClickHandler = (e) => {
+
+  const surnameClickHandler = (e) => {
     e.preventDefault();
     setDisp('Gerneth Canilao');
   }
 
+
   return (
     <div className='App'>
       <div className='Header'>
-        Calculator of Gerenth Canilao - IT3A
+        Calculator of Gerneth Canilao - IT3A
       </div>
-
       <div className='Calculator'>
         <CalcDisplay dispValue={disp} />
-
         <div className='CalcButtons'>
           <CalcButtons label={'7'} onClick={numClickHandler} />
           <CalcButtons label={'8'} onClick={numClickHandler} />
@@ -106,11 +124,15 @@ function App() {
           <CalcButtons label={'0'} onClick={numClickHandler} />
           <CalcButtons label={'='} onClick={eqClickHandler} />
           <CalcButtons label={'+'} onClick={opClickHandler} />
-          <CalcButtons label={'Canilao'} buttonClassName="CanilaoButton" onClick={canilaoClickHandler} />
         </div>
+
+        <CalcButtons label={'Canilao'} buttonClassName="SurnameButton" onClick={surnameClickHandler}
+        />
+
       </div>
     </div>
   )
 }
+
 
 export default App
